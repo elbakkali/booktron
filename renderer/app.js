@@ -1,6 +1,17 @@
 const {ipcRenderer} = require('electron')
 const items = require('./items')
 
+$(document).keydown((e) => {
+    switch(e.key) {
+        case 'ArrowUp':
+            items.changeItem('up')
+            break;
+        case 'ArrowDown':
+            items.changeItem('down')
+            break;
+    }
+})
+
 $('.open-add-modal').click(() => {
     $('#add-modal').addClass('is-active')
 })
@@ -36,6 +47,10 @@ ipcRenderer.on('new-item-success', (e, item) => {
     $('#item-input').prop('disabled', false).val('')
     $('#add-button').removeClass('is-loading')
     $('.close-add-modal').removeClass('is-disabled')
+
+    if(item.toreadItems.length === 1) {
+        $('.read-item:first()').addClass('is-active')
+    }
 })
 
 $('#search').keyup((e) => {
@@ -47,4 +62,5 @@ $('#search').keyup((e) => {
 
 if(items.toreadItems.length) {
     items.toreadItems.forEach(items.addItem)
+    $('.read-item:first()').addClass('is-active')
 }
