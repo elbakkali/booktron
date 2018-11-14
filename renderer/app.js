@@ -38,6 +38,13 @@ ipcRenderer.on('new-item-success', (e, item) => {
     $('.close-add-modal').removeClass('is-disabled')
 })
 
+$('#search').keyup((e) => {
+    let filter = $(e.currentTarget).val()
+    $('.read-item').each((i, el) => {
+        $(el).text().toLocaleLowerCase().includes(filter) ? $(el).show() : $(el).hide()
+    })
+})
+
 if(items.toreadItems.length) {
     items.toreadItems.forEach(items.addItem)
 }
