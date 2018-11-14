@@ -1,4 +1,5 @@
 const {ipcRenderer} = require('electron')
+const items = require('./items')
 
 $('.open-add-modal').click(() => {
     $('#add-modal').addClass('is-active')
@@ -27,8 +28,16 @@ $('#item-input').keyup((e) => {
 })
 
 ipcRenderer.on('new-item-success', (e, item) => {
+    items.toreadItems.push(item)
+    items.saveItems()
+    items.addItem(item)
+    
     $('#add-modal').removeClass('is-active')
     $('#item-input').prop('disabled', false).val('')
     $('#add-button').removeClass('is-loading')
     $('.close-add-modal').removeClass('is-disabled')
 })
+
+if(items.toreadItems.length) {
+    items.toreadItems.forEach(items.addItem)
+}
