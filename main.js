@@ -1,22 +1,21 @@
+
 const {app, ipcMain} = require('electron')
 const mainWindow = require('./mainWindow')
+const readItem = require('./readItem')
 
 ipcMain.on('new-item', (e, itemURL) => {
-  setTimeout(() => {
-    e.sender.send('new-item-success', 'new read item')
-  }, 3000);
+    readItem( itemURL, (item) => {
+      console.log(item)
+      e.sender.send('new-item-success', item)
+    })
 })
 
 app.on('ready', mainWindow.createWindow)
 
-app.on('window-all-closed', function () {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') app.quit()
 })
 
-app.on('activate', function () {
-  if (mainWindow === null) {
-    createWindow()
-  }
+app.on('activate', () => {
+  if (mainWindow === null) mainWindow.createWindow()
 })
