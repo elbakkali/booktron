@@ -1,6 +1,18 @@
+
 #no-items {
-    padding: 2rem 0;
-    color: lightgrey;
-    font-style: italic;
-  }
-  
+  padding: 2rem 0;
+  color: lightgrey;
+  font-style: italic;
+}
+
+.panel {
+  padding-top: 52px;
+  margin-bottom: 0 !important;
+}
+
+.panel-heading {
+    position: fixed;
+    width: 100%;
+    margin-top: -52px;
+    z-index: 100;
+}
