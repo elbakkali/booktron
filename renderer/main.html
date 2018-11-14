@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Booktron</title>
+    <link rel="stylesheet" href="../bower_components/bulma/css/bulma.css">
+    <link rel="stylesheet" href="../bower_components/font-awesome/web-fonts-with-css/css/fontawesome.min.css">
+    <link rel="stylesheet" href="main.css">
+  </head>
+  <body>
+    <div class="panel">
+      <div class="panel-heading">
+        <div class="control is-grouped">
+          <p class="control">
+            <a class="button is-primary">
+              <span class="icon is-small">
+                <i class="fa fa-plus"></i>
+              </span>
+            </a>
+          </p>
+          <p class="control is-expanded has-icon has-icon-right">
+            <input class="input" id="search" type="text">
+            <span class="icon is-small">
+              <i class="fa fa-search"></i>
+            </span>
+          </p>
+        </div>
+      </div>
+      <div id="read-list" class="empty">
+        <p id="no-items" class="has-text-centered">No Items</p>
+      </div>
+    </div>
+  </body>
+  <script>
+    $ = require('jquery')
+    require('./app')
+  </script>
+</html>
