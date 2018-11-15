@@ -19,19 +19,38 @@ exports.changeItem = (direction) => {
     }
 }
 
+window.deleteItem = (i) => {
+    if(i === false) i = ($('.read-item.is-active').index() - 1)
+
+    $('.read-item').eq(i).remove()
+      this.toreadItems = this.toreadItems.filter((item, index) => {
+      return index !== i
+    })
+  
+    this.saveItems()
+  
+    if (this.toreadItems.length) {
+        let newIndex = (i === 0) ? 0 : i - 1
+        $('.read-item').eq(newIndex).addClass('is-active')
+      } else {
+      $('#no-items').show()
+    }
+}  
+
 exports.openItem = () => {
     if(!this.toreadItems.length) {
         return
     }
     let targetItem = $('.read-item.is-active')
-    let contentURL = targetItem.data('url')
-    console.log('opening item')
-    console.log(contentURL)
+    let contentURL = encodeURIComponent(targetItem.data('url'))
+    let itemIndex = targetItem.index() - 1
+    let readerWinURL = `file://${__dirname}/reader.html?url=${contentURL}&itemIndex=${itemIndex}`
+    let readerWin = window.open(readerWinURL, targetItem.data('title'))
 }
 
 exports.addItem = (item) => {
   $('#no-items').hide()
-  let itemHTML = `<a class="panel-block read-item" data-url="${item.url}">
+  let itemHTML = `<a class="panel-block read-item" data-url="${item.url}" data-title="${item.title}">
                     <figure class="image has-shadow is-64x64 thumb">
                       <img src="${item.screenshot}">
                     </figure>
