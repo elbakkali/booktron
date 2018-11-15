@@ -1,5 +1,6 @@
 const {ipcRenderer} = require('electron')
 const items = require('./items')
+const menu = require('./menu')
 
 $(document).keydown((e) => {
     switch(e.key) {
@@ -14,10 +15,12 @@ $(document).keydown((e) => {
 
 $('.open-add-modal').click(() => {
     $('#add-modal').addClass('is-active')
+    $('#item-input').focus()
 })
 
 $('.close-add-modal').click(() => {
     $('#add-modal').removeClass('is-active')
+    $('#item-input').val('')
 })
 
 $('#add-button').click(() => {
