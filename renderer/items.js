@@ -12,14 +12,13 @@ exports.selectItem = (e) => {
 exports.changeItem = (direction) => {
     let activeItem = $('.read-item.is-active')
     let newItem = (direction === 'down') ? activeItem.next('.read-item') : activeItem.prev('.read-item')
-    console.log(direction)
     if(newItem.length) {
         activeItem.removeClass('is-active')
         newItem.addClass('is-active')
     }
 }
 
-window.deleteItem = (i) => {
+window.deleteItem = (i = false) => {
     if(i === false) i = ($('.read-item.is-active').index() - 1)
 
     $('.read-item').eq(i).remove()
@@ -37,7 +36,17 @@ window.deleteItem = (i) => {
     }
 }  
 
-exports.openItem = () => {
+window.openInBrowser = () => {
+    if(!this.toreadItems.length) {
+        return
+    }
+
+    let targetItem = $('.read-item.is-active')
+
+    require('electron').shell.openExternal(targetItem.data('url'))
+}
+
+window.openItem = () => {
     if(!this.toreadItems.length) {
         return
     }
@@ -60,5 +69,5 @@ exports.addItem = (item) => {
     $('.read-item')
     .off('click, dblclick')
     .on('click', this.selectItem)
-    .on('dblclick', this.openItem)
+    .on('dblclick', window.openItem)
 }
